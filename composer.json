@@ -1,0 +1,23 @@
+{
+  "name": "ralphschindler/laragis",
+  "description": "A geospatial library and set of utilities for Laravel",
+  "keywords": ["php", "geo", "gis", "spatial", "geospatial", "laravel"],
+  "type": "library",
+  "license": "UNLICENSE",
+  "authors": [
+    {
+      "name": "Ralph Schindler"
+    }
+  ],
+  "require": {
+    "php": ">=5.5"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "LaraGis\\": "src/"
+    }
+  }
+}
