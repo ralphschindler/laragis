@@ -8,6 +8,9 @@ namespace LaraGis;
  */
 class Coordinates
 {
+    const LATITUDE_FIRST = 'LATITUDE_FIRST';
+    const LONGITUDE_FIRST = 'LONGITUDE_FIRST';
+
     protected $latitude;
     protected $longitude;
 
@@ -15,6 +18,36 @@ class Coordinates
     {
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+    }
+
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    }
+
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    public function castToString($separator = ', ', $coordinatesOrder = self::LATITUDE_FIRST)
+    {
+        switch ($coordinatesOrder) {
+            case self::LONGITUDE_FIRST:
+                return "{$this->longitude}{$separator}{$this->latitude}";
+            default:
+                return "{$this->latitude}{$separator}{$this->longitude}";
+        }
     }
 
     public function __get($name)
@@ -26,9 +59,18 @@ class Coordinates
         }
     }
 
+    public function __set($name, $value)
+    {
+        switch (strtolower($name)) {
+            case 'latitude': $this->setLatitude($value); break;
+            case 'longitude': $this->setLongitude($value); break;
+            default: throw new \DomainException('A point property must be a longitude or latitude');
+        }
+    }
+
     public function __toString()
     {
-        return "$this->latitude, $this->longitude";
+        return $this->getLatitudeLongitude();
     }
 }
 

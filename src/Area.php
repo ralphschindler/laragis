@@ -2,7 +2,9 @@
 
 namespace LaraGis;
 
-class Area
+use Traversable;
+
+class Area implements \IteratorAggregate, \Countable
 {
     /** @var Coordinates[] */
     protected $coordinatesSet = [];
@@ -17,6 +19,11 @@ class Area
         return $this->coordinatesSet;
     }
 
+    public function castToString($separator, $coordinatesSeparator = ', ', $coordinatesOrder = Coordinates::LATITUDE_FIRST)
+    {
+
+    }
+
     public function __toString()
     {
         $strs = [];
@@ -24,6 +31,16 @@ class Area
             $strs[] = (string) $coordinates;
         }
         return '[' . implode(' -> ', $strs) . ']';
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->coordinatesSet);
+    }
+
+    public function count()
+    {
+        return count($this->coordinatesSet);
     }
 }
 

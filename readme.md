@@ -2,6 +2,11 @@
 
 LaraGis provides geospatial database and Eloquent features to Laravel.
 
+Features:
+
+- Simple Entity API, for use in casting model properties
+- Fast serialization of geospatial data from MySql (not PHP userland) via `ST_AsGeoJSON()`
+
 ## Installation
 
 To get started with Socialite, add to your `composer.json` file as a dependency:
@@ -34,5 +39,34 @@ class Place extends Model
     protected $casts = [
         'coordinates' => 'laragis'
     ];
+}
+```
+
+```php
+$place = App\Places::find(1);
+$coordinates = $place->coordinates;
+echo $coordinates->getLatitudeLongitude(); // "30, -90"
+```
+
+## Entity API
+
+```php
+
+/**
+ * @property double $latitude
+ * @property double $longitude
+ */
+class Coordinates {
+    public function __construct($latitude = null, $longitude = null);
+    public function setLatitude($latitude);
+    public function getLatitude();
+    public function setLongitude($longitude);
+    public function getLongitude();
+    public function castToString($separator, $coordinatesOrder = self::LATITUDE_FIRST)
+}
+
+class Area implements \IteratorAggregate, \Countable {
+    public function addCoordinates(Coordinates $coordinates);
+    public function getCoordinates();
 }
 ```

@@ -13,11 +13,18 @@
     "php": ">=5.5"
   },
   "require-dev": {
+    "illuminate/database": "~5.3",
+    "illuminate/support": "~5.3",
     "phpunit/phpunit": "~5.5"
   },
   "autoload": {
     "psr-4": {
       "LaraGis\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
     }
   }
 }
