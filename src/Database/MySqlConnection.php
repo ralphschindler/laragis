@@ -8,6 +8,7 @@ use Illuminate\Database\MySqlConnection as BaseMySqlConnection;
 class MySqlConnection extends BaseMySqlConnection
 {
     protected $proxiedConnection = null;
+
     public function __construct(BaseMySqlConnection $connection)
     {
         // extension through proxy
